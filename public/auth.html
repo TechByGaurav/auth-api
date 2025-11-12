@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Register & Login | Auth App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f4f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      width: 350px;
+      text-align: center;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      border: none;
+      background: #007bff;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover { background: #0056b3; }
+    form {
+      display: none;
+      margin-top: 20px;
+    }
+    input {
+      width: 90%;
+      padding: 10px;
+      margin: 5px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    #message {
+      margin-top: 15px;
+      color: green;
+    }
+    .link {
+      color: #007bff;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Welcome to Auth Page</h2>
+    <div id="startButtons">
+      <button id="showRegister">Register</button>
+      <button id="showLogin">Login</button>
+    </div>
+
+   
+    <form id="registerForm">
+      <h3>Register</h3>
+      <input type="text" id="name" placeholder="Name" required><br>
+      <input type="email" id="email" placeholder="Email" required><br>
+      <input type="password" id="password" placeholder="Password" required><br>
+      <button type="submit">Register</button>
+      <p>Already have an account? <span class="link" id="toLogin">Login</span></p>
+    </form>
+
+   
+    <form id="loginForm">
+      <h3>Login</h3>
+      <input type="email" id="loginEmail" placeholder="Email" required><br>
+      <input type="password" id="loginPassword" placeholder="Password" required><br>
+      <button type="submit">Login</button>
+      <p>Don't have an account? <span class="link" id="toRegister">Register here</span></p>
+    </form>
+
+    <p id="message"></p>
+  </div>
+
+  <script>
+    const API_URL = "http://localhost:8000/api/auth";
+
+    const startButtons = document.getElementById("startButtons");
+    const registerForm = document.getElementById("registerForm");
+    const loginForm = document.getElementById("loginForm");
+    const message = document.getElementById("message");
+
+    
+    document.getElementById("showRegister").addEventListener("click", () => {
+      startButtons.style.display = "none";
+      registerForm.style.display = "block";
+    });
+
+ 
+    
+    document.getElementById("showLogin").addEventListener("click", () => {
+      startButtons.style.display = "none";
+      loginForm.style.display = "block";
+    });
+
+    
+    document.getElementById("toLogin").addEventListener("click", () => {
+      registerForm.style.display = "none";
+      loginForm.style.display = "block";
+      message.innerText = "";
+    });
+
+    
+    document.getElementById("toRegister").addEventListener("click", () => {
+      loginForm.style.display = "none";
+      registerForm.style.display = "block";
+      message.innerText = "";
+    });
+
+    
+    registerForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      try {
+        const res = await fetch(`${API_URL}/register`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, email, password })
+        });
+        const data = await res.json();
+        message.innerText = data.message || "Registered successfully! Redirecting...";
+        setTimeout(() => {
+          registerForm.style.display = "none";
+          loginForm.style.display = "block";
+          message.innerText = "";
+        }, 2000); // redirect to login after 2 sec
+      } catch {
+        message.innerText = "Error registering user!";
+      }
+    });
+
+   
+   loginForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const email = document.getElementById("loginEmail").value;
+  const password = document.getElementById("loginPassword").value;
+
+  try {
+    const res = await fetch(`${API_URL}/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password })
+    });
+    const data = await res.json();
+
+    if (data.token) {
+     
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("userName", data.user?.name || "User");
+
+    
+      message.innerText = "Login successful! Redirecting...";
+      setTimeout(() => {
+        window.location.href = "welcome.html"; 
+      }, 1500);
+    } else {
+      message.innerText = data.message || "Login failed!";
+    }
+  } catch {
+    message.innerText = "Error logging in!";
+  }
+});
+
+  </script>
+</body>
+</html>
