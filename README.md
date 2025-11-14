@@ -110,7 +110,7 @@ MONGO_URI=mongodb://localhost:27017/authDB
 ### 4. Start Server
 
 ```
-npm start
+nodemon server.js
 ```
 
 ---
@@ -150,7 +150,7 @@ Response:
 ### **Access Protected Route:**
 
 ```
-GET http://localhost:8000/profile
+GET http://localhost:8000/me
 ```
 
 Header:
