@@ -120,7 +120,7 @@ npm start
 ### **Register User:**
 
 ```
-POST http://localhost:5000/api/auth/register
+POST http://localhost:8000/api/auth/register
 ```
 
 Body:
@@ -136,7 +136,7 @@ Body:
 ### **Login:**
 
 ```
-POST http://localhost:5000/api/authlogin
+POST http://localhost:8000/api/auth/login
 ```
 
 Response:
@@ -150,7 +150,7 @@ Response:
 ### **Access Protected Route:**
 
 ```
-GET http://localhost:5000/profile
+GET http://localhost:8000/profile
 ```
 
 Header:
