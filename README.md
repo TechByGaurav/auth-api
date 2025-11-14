@@ -104,7 +104,7 @@ Create `.env` file:
 
 ```
 JWT_SECRET=your_jwt_secret_key
-MONGO_URI=mongodb://localhost:27017/authDB
+MONGO_URI=mongodb://localhost:27017/auth_api_srk
 ```
 
 ### 4. Start Server
