@@ -64,7 +64,7 @@ api-authentication/
 | -------- | ----------- | ---------------------- |
 | **POST** | `/register` | Register new user      |
 | **POST** | `/login`    | Login user & get JWT   |
-| **GET**  | `/profile`  | Access protected route |
+| **GET**  | `/me`       | Access protected route |
 
 ---
 
