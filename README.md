@@ -150,7 +150,7 @@ Response:
 ### **Access Protected Route:**
 
 ```
-GET http://localhost:8000/me
+GET http://localhost:8000/api/auth/me
 ```
 
 Header:
