@@ -1,4 +1,4 @@
-# PI Authentication API (JWT Authentication)
+# API Authentication API (JWT Authentication)
 
 A secure and scalable **RESTful Authentication API** built with **Node.js, Express.js, and MongoDB**, implementing **JSON Web Tokens (JWT)** for user login, registration, and protected routes.
 
@@ -41,7 +41,7 @@ Secure handling of token invalidation.
 ## 📂 Project Structure
 
 ```
-pi-authentication/
+api-authentication/
 │── controllers/
 │     └── authController.js
 │── models/
@@ -120,7 +120,7 @@ npm start
 ### **Register User:**
 
 ```
-POST http://localhost:5000/register
+POST http://localhost:5000/api/auth/register
 ```
 
 Body:
@@ -136,7 +136,7 @@ Body:
 ### **Login:**
 
 ```
-POST http://localhost:5000/login
+POST http://localhost:5000/api/authlogin
 ```
 
 Response:
